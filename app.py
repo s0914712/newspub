@@ -13,7 +13,6 @@ line_bot_api    = LineBotApi(Channel_Access_Token)
 Channel_Secret  = '56f014f7e7e0c049940037987831171c'
 handler = WebhookHandler(Channel_Secret)
 
-
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -27,24 +26,15 @@ def callback():
         abort(400)
     return 'OK'
 
-
 # handle text message
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-
-    if "新聞" in msg:
-        result = news_crawler()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        )
-    else:
+    if event.source.user_id != " ":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=msg)
         )
-
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
