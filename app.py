@@ -1,6 +1,4 @@
-
 import os
-
 from crawl import *
 from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
