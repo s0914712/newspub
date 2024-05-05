@@ -25,6 +25,18 @@ def news_crawler():
         continue
     msg = ""
     msg = "".join(map(str,all_title[69:96]))
-    return msg
+    url = "https://www.ettoday.net/news/focus/%E8%BB%8D%E6%AD%A6/%E5%8F%B0%E7%81%A3/"
+    response = requests.get(url)
+    bs = BeautifulSoup(response.text, "html.parser")
+    result = bs.find_all("h3")
+    all_title = []
+    for i in result:
+  	try:
+      	   all_title.append(i.find("a").get("title"))
+           all_title.append(i.find("a").get("href"))
+   	except:
+      	   continue
+	   print(all_title)
+    return msg.append(all_title)
 
   
