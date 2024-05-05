@@ -36,9 +36,10 @@ def handle_message(event):
 
     if "新聞" in msg:
         result = news_crawler()
+        result2= CNAnews_crawler()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=result)
+            TextSendMessage(text=result+result2)
         )
     else:
         line_bot_api.reply_message(
