@@ -1,4 +1,0 @@
-bs4
-flask
-requests
-line-bot-sdk
