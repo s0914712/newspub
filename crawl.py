@@ -6,8 +6,6 @@ from selenium import webdriver
 headers = {
     	'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36',
 	}
-    r = re
-
 def news_crawler():
 quests.get('https://www.cna.com.tw/search/hysearchws.aspx?q=海軍', headers=headers)
     base_url='https://www.cna.com.tw'
