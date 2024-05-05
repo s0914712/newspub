@@ -7,7 +7,7 @@ headers = {
     	'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36',
 	}
 def news_crawler():
-    response = requests.get(https://www.ettoday.net/news/focus/%E8%BB%8D%E6%AD%A6/%E5%8F%B0%E7%81%A3/)
+    response = requests.get('https://www.ettoday.net/news/focus/%E8%BB%8D%E6%AD%A6/%E5%8F%B0%E7%81%A3/')
     soup = BeautifulSoup(response.text, "html.parser")
     result = bs.find_all("h3")
     all_title = []
