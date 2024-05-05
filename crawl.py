@@ -37,6 +37,6 @@ def news_crawler():
    	except:
       	   continue
 	   print(all_title)
-    return msg.append(all_title)
+    return all_title
 
   
