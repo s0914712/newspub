@@ -20,6 +20,7 @@ handler = WebhookHandler(Channel_Secret)
 def callback():
     signature = request.headers['X-Line-Signature']
     body      = request.get_data(as_text=True)
+    json_data = json.loads(body)
     app.logger.info("Request body: " + body)
 
     try:
@@ -27,8 +28,6 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
-
 # handle text message
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -42,9 +41,13 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     else:
+        msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
+        tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
+        line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
+        print(msg, tk)                                      
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=msg)
+            TextSendMessage(text=tk)
         )
 
 
