@@ -47,7 +47,7 @@ def handle_message(event):
         NUM.append("掛號")
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=NUM[5])
+            TextSendMessage(text=NUM[3])
         )
     else:
                              
