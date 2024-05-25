@@ -3,5 +3,4 @@ flask
 requests
 selenium
 line-bot-sdk
-psycopg2
-json
+psycopg2-binary
