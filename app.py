@@ -46,25 +46,24 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=result+result2)
         )
-      if "查詢" in msg:
-          conn = psycopg2.connect(
-            database="dcsbhdut3v5fue",
-            user="uq2rvdd232lmg",
-            password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
-            host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-            port=5432)
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
-
-            conn.commit()
-            cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
-            rows = cursor.fetchall() #讀出所有資料
-            for row in rows:   #將讀到的資料全部print出來
+    if "查詢" in msg:
+         conn = psycopg2.connect(
+         database="dcsbhdut3v5fue",
+         user="uq2rvdd232lmg",
+         password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
+         host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+         port=5432)
+         cursor = conn.cursor()
+         cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
+         conn.commit()
+         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
+         rows = cursor.fetchall() #讀出所有資料
+         for row in rows:   #將讀到的資料全部print出來
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=str(row[0])+str(row[1])+str(row[2])
                 )    
-            cursor.close()
+         cursor.close()
 
     else:
         msg2=event.reply_token
