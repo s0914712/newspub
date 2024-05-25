@@ -23,8 +23,8 @@ def callback():
     json_data = json.loads(body)
     msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
     tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
-    line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
-    print(tk,msg)
+    #line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
+    print("TK",tk,msg)
     app.logger.info("Request body: " + body)
     try:
         handler.handle(body, signature)
