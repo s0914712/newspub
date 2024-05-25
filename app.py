@@ -27,7 +27,27 @@ def callback():
     json_data = json.loads(body)
     msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
     tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
-    if(event.message.text[:3:] in keywords and len(event.message.text)>3):
+    
+    #line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
+    app.logger.info("Request body: " + body)
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
+# handle text message
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    msg = event.message.text
+    NUM=["123", 'xyz', 'zara', 'abc']
+    if "新聞" in msg:
+        result = news_crawler()
+        result2= CNAnews_crawler()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=result+result2)
+        )
+   if(event.message.text[:3:] in keywords and len(event.message.text)>3):
         key=event.message.text[:3:]      
         profile = line_bot_api.get_profile(event.source.user_id)
         cursor=conn.cursor()      
@@ -50,31 +70,6 @@ def callback():
             cursor.execute(f"INSERT INTO group_buying_user (mid, uid, name, quantity) VALUES ((SELECT mid FROM group_buying_message WHERE keyword='{key}'),'{event.source.user_id}','{profile.display_name}','{event.message.text[4::]}' );")
             conn.commit()
             cursor.close()
-    #line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
-    app.logger.info("Request body: " + body)
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
-# handle text message
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    msg = event.message.text
-    NUM=["123", 'xyz', 'zara', 'abc']
-    if "新聞" in msg:
-        result = news_crawler()
-        result2= CNAnews_crawler()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result+result2)
-        )
-    if "掛號" in msg:
-        NUM.append("掛號")
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=NUM[3])
-        )
     else:
         msg2=event.reply_token
         NUM.append(msg2)
