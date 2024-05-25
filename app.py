@@ -44,10 +44,10 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "掛號" in msg:
-        num[0]="掛號1"
+        NUM[0]="掛號1"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=num[0])
+            TextSendMessage(text=NUM[0])
         )
     else:
                              
