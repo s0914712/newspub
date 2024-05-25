@@ -21,8 +21,11 @@ def callback():
     signature = request.headers['X-Line-Signature']
     body      = request.get_data(as_text=True)
     json_data = json.loads(body)
+    msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
+    tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
+    line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
+    print(tk,msg)
     app.logger.info("Request body: " + body)
-
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
@@ -32,7 +35,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-
+    NUM=[1,2,3,4,5,6,7,8,9,10]
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
@@ -40,16 +43,19 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=result+result2)
         )
-    else:
-        msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
-        tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
-        line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
-        print(msg, tk)                                      
+    if "掛號" in msg:
+        num[0]="掛號1"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=tk)
+            TextSendMessage(text=num[0])
         )
-
+    else:
+                             
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
