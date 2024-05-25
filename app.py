@@ -47,7 +47,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=result+result2)
         )
-   if(event.message.text[:3:] in keywords and len(event.message.text)>3):
+   if(event.message.text[:2:] in keywords and len(event.message.text)>2):
         key=event.message.text[:3:]      
         profile = line_bot_api.get_profile(event.source.user_id)
         cursor=conn.cursor()      
