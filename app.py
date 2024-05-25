@@ -1,3 +1,4 @@
+!pip uninstall psycopg2
 import os
 import json
 from crawl import *
