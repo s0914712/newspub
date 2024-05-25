@@ -5,6 +5,7 @@ from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
+import psycopg2
 
 
 app = Flask(__name__)
