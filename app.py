@@ -50,10 +50,11 @@ def handle_message(event):
             TextSendMessage(text=NUM[3])
         )
     else:
-        msg2=event.reply_token                 
+        msg2=event.reply_token
+        NUM.append(msg2)
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=msg2)
+            TextSendMessage(text=len(NUM))
         )
         
 
