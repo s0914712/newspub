@@ -13,8 +13,13 @@ Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicH
 line_bot_api    = LineBotApi(Channel_Access_Token)
 Channel_Secret  = '56f014f7e7e0c049940037987831171c'
 handler = WebhookHandler(Channel_Secret)
-
-
+conn = psycopg2.connect(
+    database="dcsbhdut3v5fue",
+    user="uq2rvdd232lmg",
+    password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
+    host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+    port=5432)
+keywords = ['掛號', '議題', '橘子']
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -23,8 +28,30 @@ def callback():
     json_data = json.loads(body)
     msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
     tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
+    if(event.message.text[:3:] in keywords and len(event.message.text)>3):
+        key=event.message.text[:3:]      
+        profile = line_bot_api.get_profile(event.source.user_id)
+        cursor=conn.cursor()      
+        cursor.execute(f"SELECT message_text FROM group_buying_message WHERE keyword='{key}';")
+        message_text = cursor.fetchone()
+        cursor.execute(f"SELECT index,product_id,emoji_id FROM message_emoji WHERE mid=(SELECT mid FROM group_buying_message WHERE keyword='{key}');")
+        rows = cursor.fetchall()
+        emojis=[]
+        #將資料一筆一筆寫入list中
+        for row in rows:
+            emojis.append({'index': row[0],'productId': row[1],'emojiId': row[2]})
+            message_text_d="".join(message_text)
+            cursor.execute(f"SELECT name,quantity FROM group_buying_user WHERE mid=(SELECT mid FROM group_buying_message WHERE keyword='{key}');")
+            users = cursor.fetchall()
+        for user in users:
+            message_text_d=message_text_d+"".join(user[0])+" "+"".join(user[1])+"\n"
+            message_text_d=message_text_d+profile.display_name+" "+event.message.text[4::]
+            message=TextSendMessage(message_text_d,emojis)
+            line_bot_api.reply_message(event.reply_token,message)
+            cursor.execute(f"INSERT INTO group_buying_user (mid, uid, name, quantity) VALUES ((SELECT mid FROM group_buying_message WHERE keyword='{key}'),'{event.source.user_id}','{profile.display_name}','{event.message.text[4::]}' );")
+            conn.commit()
+            cursor.close()
     #line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
-    print("TK",tk,msg)
     app.logger.info("Request body: " + body)
     try:
         handler.handle(body, signature)
