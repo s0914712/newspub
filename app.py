@@ -39,7 +39,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    NUM=["123", 'xyz', 'zara', 'abc']
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
@@ -47,29 +46,26 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=result+result2)
         )
-   if(event.message.text[:2:] in keywords and len(event.message.text)>2):
-        key=event.message.text[:3:]      
-        profile = line_bot_api.get_profile(event.source.user_id)
-        cursor=conn.cursor()      
-        cursor.execute(f"SELECT message_text FROM group_buying_message WHERE keyword='{key}';")
-        message_text = cursor.fetchone()
-        cursor.execute(f"SELECT index,product_id,emoji_id FROM message_emoji WHERE mid=(SELECT mid FROM group_buying_message WHERE keyword='{key}');")
-        rows = cursor.fetchall()
-        emojis=[]
-        #將資料一筆一筆寫入list中
-        for row in rows:
-            emojis.append({'index': row[0],'productId': row[1],'emojiId': row[2]})
-            message_text_d="".join(message_text)
-            cursor.execute(f"SELECT name,quantity FROM group_buying_user WHERE mid=(SELECT mid FROM group_buying_message WHERE keyword='{key}');")
-            users = cursor.fetchall()
-        for user in users:
-            message_text_d=message_text_d+"".join(user[0])+" "+"".join(user[1])+"\n"
-            message_text_d=message_text_d+profile.display_name+" "+event.message.text[4::]
-            message=TextSendMessage(message_text_d,emojis)
-            line_bot_api.reply_message(event.reply_token,message)
-            cursor.execute(f"INSERT INTO group_buying_user (mid, uid, name, quantity) VALUES ((SELECT mid FROM group_buying_message WHERE keyword='{key}'),'{event.source.user_id}','{profile.display_name}','{event.message.text[4::]}' );")
+      if "查詢" in msg:
+          conn = psycopg2.connect(
+            database="dcsbhdut3v5fue",
+            user="uq2rvdd232lmg",
+            password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
+            host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+            port=5432)
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
+
             conn.commit()
+            cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
+            rows = cursor.fetchall() #讀出所有資料
+            for row in rows:   #將讀到的資料全部print出來
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(row[0])+str(row[1])+str(row[2])
+                )    
             cursor.close()
+
     else:
         msg2=event.reply_token
         NUM.append(msg2)
