@@ -35,7 +35,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    NUM=[1,2,3,4,5,6,7,8,9,10]
+    NUM=[123, 'xyz', 'zara', 'abc']
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
@@ -44,10 +44,10 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "掛號" in msg:
-        NUM[0]="掛號1"
+        NUM.append("掛號")
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=NUM[0])
+            TextSendMessage(text=NUM)
         )
     else:
                              
