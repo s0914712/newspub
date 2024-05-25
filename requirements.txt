@@ -3,3 +3,4 @@ flask
 requests
 selenium
 line-bot-sdk
+psycopg2==2.4.4
