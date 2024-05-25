@@ -61,8 +61,8 @@ def handle_message(event):
          for row in rows:   #將讀到的資料全部print出來
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=str(row[0])+str(row[1])+str(row[2])
-                )    
+            TextSendMessage(text=str(row[0])+str(row[1])+str(row[2])) 
+            )
          cursor.close()
 
     else:
