@@ -77,7 +77,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,profile)
     if "刪除" in msg:
         uid=msg[2:]
-        print(uid)
         cursor = conn.cursor()
         cursor.execute(f"DELETE FROM userdata WHERE name = '{uid}';")
         conn.commit()
@@ -85,6 +84,14 @@ def handle_message(event):
         rows = cursor.fetchall() #讀出所有資料
         conn.commit()
         cursor.close()
+    if "更新" in msg:
+        uid=msg[2:3]
+        new_uid=msg[4:5]
+        cursor = conn.cursor()
+        postgres_update_query = f"""UPDATE userdata SET userid = '{new_uid}' WHERE userid = %s"""
+        userid = uid
+        cursor.execute(postgres_update_query,(userid,))
+        conn.commit()
     else:
         msg2=event.reply_token
         line_bot_api.reply_message(
