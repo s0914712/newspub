@@ -48,6 +48,7 @@ def handle_message(event):
         )
     if "查詢" in msg:
          message_text_d=""
+   
          cursor = conn.cursor()
         #cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
          cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
@@ -76,11 +77,14 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,profile)
     if "刪除" in msg:
         uid=msg[2:]
+        print(uid)
+        cursor = conn.cursor()
         cursor.execute(f"DELETE FROM userdata WHERE name = '{uid}';")
         conn.commit()
         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
         rows = cursor.fetchall() #讀出所有資料
         conn.commit()
+        cursor.close()
     else:
         msg2=event.reply_token
         line_bot_api.reply_message(
