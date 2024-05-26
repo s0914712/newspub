@@ -63,6 +63,7 @@ def handle_message(event):
             )
          cursor.close()
     if "掛號" in msg:
+        message_text_d=""
         table_columns = '(name,value)'
         #紀錄
         values=msg[2:]
@@ -72,7 +73,6 @@ def handle_message(event):
         Id=profile.user_id
         cursor = conn.cursor()
         cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);",record)
-        conn.commit()
         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
         rows = cursor.fetchall() #讀出所有資料
         conn.commit()
