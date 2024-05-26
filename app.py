@@ -72,9 +72,18 @@ def handle_message(event):
         Id=profile.user_id
         cursor = conn.cursor()
         cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);",record)
-        
         conn.commit()
-        line_bot_api.reply_message(event.reply_token,profile)
+        cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
+        rows = cursor.fetchall() #讀出所有資料
+        conn.commit()
+        for row in rows:   #將讀到的資料全部print出來
+            message_text_d=message_text_d+""+str(row[0])+" "+""+str(row[1])+str(row[2])+"\n"
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(message_text_d) 
+            )
+        cursor.close()
+        line_bot_api.reply_message(event.reply_token,"added")
     if "刪除" in msg:
         uid=msg[2:]
         cursor = conn.cursor()
