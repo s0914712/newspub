@@ -54,7 +54,7 @@ def handle_message(event):
          rows = cursor.fetchall() #讀出所有資料
          conn.commit()
          for row in rows:   #將讀到的資料全部print出來
-              message_text_d=message_text_d+""+str(row[0])+" "+""+str(row[1])+str(row[2])"\n"
+              message_text_d=message_text_d+""+str(row[0])+" "+""+str(row[1])+str(row[2])+"\n"
         
          line_bot_api.reply_message(
          event.reply_token,
