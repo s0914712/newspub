@@ -105,7 +105,7 @@ def handle_message(event):
          TextSendMessage(uid+"  "+new_uid) 
             )
     if "?" in msg:
-        line_bot_api.push_message('Ueba2a5d17b824a9a3a19002399fbf433', 
+        line_bot_api.push_message(event.reply_token,
         FlexSendMessage(
         alt_text='hello',
             contents={ 
