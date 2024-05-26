@@ -93,7 +93,7 @@ def handle_message(event):
         cursor.close()
         line_bot_api.reply_message(
          event.reply_token,
-         TextSendMessage(new_uid) 
+         TextSendMessage(uid+""+new_uid) 
             )
     else:
         msg2=event.reply_token
