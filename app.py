@@ -47,12 +47,6 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "查詢" in msg:
-         conn = psycopg2.connect(
-         database="dcsbhdut3v5fue",
-         user="uq2rvdd232lmg",
-         password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
-         host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-         port=5432)
          cursor = conn.cursor()
          cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
          conn.commit()
@@ -66,12 +60,6 @@ def handle_message(event):
             )
          cursor.close()
     if "掛號" in msg:
-         conn = psycopg2.connect(
-         database="dcsbhdut3v5fue",
-         user="uq2rvdd232lmg",
-         password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
-         host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-         port=5432)
          profile = line_bot_api.get_profile(event.source.user_id)
          cursor = conn.cursor()
          cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ('{event.source.user_id}', '{event.message.text[3:]}'))
@@ -83,11 +71,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=str(row[:])) 
             )
+        for row in rows:   #將讀到的資料全部print出來
+        print("Data row = (%s, %s, %s)" %(str(row[0]), str(row[1]), str(row[2])))
          cursor.close()
     else:
         msg2=event.reply_token
-        NUM.append(msg2)
-        line_bot_api.reply_message(
+         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=len(NUM))
         )
