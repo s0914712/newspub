@@ -66,7 +66,7 @@ def handle_message(event):
         #紀錄
         values=msg[3:]
         profile = line_bot_api.get_profile(event.source.user_id)
-        record = ( event.source.user_id, profile.display_name)
+        record = (  profile.display_name,event.source.user_id)
         name=profile.display_name
         Id=profile.user_id
         cursor = conn.cursor()
