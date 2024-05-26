@@ -205,7 +205,7 @@ def handle_message(event):
         ],
         "flex": 0
       }
-    }
+    })
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='收到')
