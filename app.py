@@ -86,12 +86,15 @@ def handle_message(event):
         cursor.close()
     if "更新" in msg:
         uid=msg[2:3]
-        new_uid=msg[4:5]
+        new_uid=msg[4:6]
         cursor = conn.cursor()
         postgres_update_query = f"""UPDATE userdata SET userid = '{new_uid}' WHERE userid = %s"""
-        userid = uid
-        cursor.execute(postgres_update_query,(userid,))
+        cursor.execute(postgres_update_query,uid)
         conn.commit()
+        line_bot_api.reply_message(
+         event.reply_token,
+         TextSendMessage(new_uid) 
+            )
     else:
         msg2=event.reply_token
         line_bot_api.reply_message(
