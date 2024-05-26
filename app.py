@@ -61,22 +61,23 @@ def handle_message(event):
          TextSendMessage(message_text_d) 
             )
          cursor.close()
-       
     if "掛號" in msg:
-         profile = line_bot_api.get_profile(event.source.user_id)
-         cursor = conn.cursor()
-         cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ('{event.source.user_id}', '{event.message.text[3:]}'))
-         conn.commit()
-         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
-         rows = cursor.fetchall() #讀出所有資料
-         for row in rows:   #將讀到的資料全部print出來
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=str(row[:])) 
-            )
-         for row in rows:   #將讀到的資料全部print出來
-            print("Data row = (%s, %s, %s)" %(str(row[0]), str(row[1]), str(row[2])))
-         cursor.close()
+        table_columns = '(name,value)'
+        #紀錄
+        values=msg[3:]
+        profile = line_bot_api.get_profile(event.source.user_id)
+        record = (str(profile),str(values))
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ('{event.source.user_id}', '{event.message.text[3:]}'))
+        conn.commit()
+        line_bot_api.reply_message(event.reply_token,record)
+    if "刪除" in msg:
+        uid='吉姆'
+        cursor.execute(f"DELETE FROM userdata WHERE name = '{uid}';")
+        conn.commit()
+        cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
+        rows = cursor.fetchall() #讀出所有資料
+        conn.commit()
     else:
         msg2=event.reply_token
         line_bot_api.reply_message(
