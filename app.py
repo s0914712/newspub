@@ -47,18 +47,21 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "查詢" in msg:
+         message_text_d=""
          cursor = conn.cursor()
          cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
          conn.commit()
          cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
          rows = cursor.fetchall() #讀出所有資料
          for row in rows:   #將讀到的資料全部print出來
-             text+=str(row[0])+str(row[1])+str(row[2])+"\n"
+              message_text_d=message_text_d+"".join(row[0])+" "+"".join(row[1])+"\n"
+
          line_bot_api.reply_message(
          event.reply_token,
-         TextSendMessage(text) 
+         TextSendMessage(message_text_d) 
             )
          cursor.close()
+       
     if "掛號" in msg:
          profile = line_bot_api.get_profile(event.source.user_id)
          cursor = conn.cursor()
