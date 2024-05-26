@@ -70,7 +70,8 @@ def handle_message(event):
         name=profile.display_name
         Id=profile.user_id
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", record)
+        cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);",'{event.source.user_id}','{profile.display_name}')
+        
         conn.commit()
         line_bot_api.reply_message(event.reply_token,profile)
     if "刪除" in msg:
