@@ -76,7 +76,7 @@ def handle_message(event):
          cursor.close()
     else:
         msg2=event.reply_token
-         line_bot_api.reply_message(
+        line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=len(msg2))
         )
