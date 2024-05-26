@@ -64,7 +64,7 @@ def handle_message(event):
     if "掛號" in msg:
         table_columns = '(name,value)'
         #紀錄
-        values=msg[3:]
+        values=msg[2:]
         profile = line_bot_api.get_profile(event.source.user_id)
         record = (profile.display_name,values)
         name=profile.display_name
@@ -75,7 +75,7 @@ def handle_message(event):
         conn.commit()
         line_bot_api.reply_message(event.reply_token,profile)
     if "刪除" in msg:
-        uid='吉姆'
+        uid=msg[2:]
         cursor.execute(f"DELETE FROM userdata WHERE name = '{uid}';")
         conn.commit()
         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
