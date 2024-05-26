@@ -95,6 +95,118 @@ def handle_message(event):
          event.reply_token,
          TextSendMessage(uid+"  "+new_uid) 
             )
+     if ("?" or "什麼") in msg:
+         line_bot_api.push_message('Ueba2a5d17b824a9a3a19002399fbf433', 
+          FlexSendMessage(
+          alt_text='hello',
+            contents={ 
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": "https://ocacnews.net/articleImages/202212/M2_0CE27D18-7BDD-5AEE-565B-CA45D4B96A79.png",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "action": {
+              "type": "uri",
+              "uri": "https://line.me/"
+            }
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "動態查詢機器人",
+                "weight": "bold",
+                "size": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "功能",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": "查動態、查新聞、掛號",
+                        "wrap": True,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "使用方法",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "align": "start"
+                      },
+                      {
+                        "type": "text",
+                        "text": "輸入：查詢 or 輸入：掛號+軍線"+"\n"+"ex:掛號683123",
+                        "wrap": True,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5,
+                        "margin": "none",
+                        "action": {
+                          "type": "message",
+                          "label": "action",
+                          "text": "範例：查詢"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+      },
+      "footer": {
+       "type": "box",
+       "layout": "vertical",
+       "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "CALL",
+              "uri": "https://liff.line.me/1645278921-kWRPP32q/?accountId=301crdbq"
+            }
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [],
+            "margin": "sm"
+          }
+        ],
+        "flex": 0
+      }
+    }))
     else:
         line_bot_api.reply_message(
         event.reply_token,
