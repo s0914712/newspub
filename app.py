@@ -1,5 +1,6 @@
 import os
 from openai import OpenAI
+import openai
 import json
 import psycopg2
 from crawl import *
