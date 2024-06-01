@@ -1,4 +1,5 @@
 import os
+import openai
 import json
 import psycopg2
 from crawl import *
@@ -46,6 +47,19 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=result+result2)
         )
+    if "AI" in msg:
+        openai.api_key = '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'
+            # 將第六個字元之後的訊息發送給 OpenAI
+        response = openai.Completion.create(
+              model='text-davinci-003',
+              prompt=msg[3:],
+              max_tokens=256,
+              temperature=0.5,
+               )
+            # 接收到回覆訊息後，移除換行符號
+         reply_msg = response["choices"][0]["text"].replace('\n','')
+         TextSendMessage(reply_msg) 
+            )
     if "查詢" in msg:
          message_text_d=""
    
@@ -105,7 +119,7 @@ def handle_message(event):
          TextSendMessage(uid+"  "+new_uid) 
             )
     if "push" in msg:
-        line_bot_api.push_message(event.reply_token,
+        line_bot_api.push_message(c05c54fea403dda0a39412f74a67fc74,
         FlexSendMessage(
         alt_text='hello',
             contents={ 
