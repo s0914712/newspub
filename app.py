@@ -10,6 +10,7 @@ from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
 import os
 
+
 app = Flask(__name__)
 
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
@@ -55,19 +56,26 @@ def handle_message(event):
         b='VrHT3BlbkFJHgScvtRU'
         c='CdDJ1S9LSLB9'
         OPENAI_API_KEY  = a+b+c
-        client = OpenAI()
-        completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-        {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-        {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-          ]
+        client = OpenAI(
+    # This is the default and can be omitted
+        api_key=os.environ.get("OPENAI_API_KEY"),
         )
+        stream = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": "Say this is a test"}],
+        stream=True,
+        )
+        for chunk in stream:
+            print(chunk.choices[0].delta.content or "", end="")
         reply_msg = completion.choices[0].message
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(reply_msg) 
-           )          
+        TextSendMessage(chunk.choices[0].delta.conten) 
+           )       
+
+
+
+   
     if "查詢" in msg:
          message_text_d=""
    
