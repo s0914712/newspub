@@ -5,4 +5,4 @@ selenium
 line-bot-sdk
 psycopg2-binary
 openai
-os
+
