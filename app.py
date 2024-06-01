@@ -2,7 +2,6 @@ import os
 import openai
 import json
 import psycopg2
-from langchain_experimental.openai_assistant import OpenAIAssistantRunnable
 from crawl import *
 from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
