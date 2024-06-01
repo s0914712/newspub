@@ -56,8 +56,6 @@ def handle_message(event):
         b='VrHT3BlbkFJHgScvtRU'
         c='CdDJ1S9LSLB9'
         OPENAI_API_KEY  = a+b+c
-        openai.api_key = os.environ[OPENAI_API_KEY]
-
         # new
         from openai import OpenAI
 
