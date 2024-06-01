@@ -56,10 +56,13 @@ def handle_message(event):
         b='VrHT3BlbkFJHgScvtRU'
         c='CdDJ1S9LSLB9'
         OPENAI_API_KEY  = a+b+c
-        os.environ[“OPENAI_API_KEY”] 
+        openai.api_key = os.environ['OPENAI_API_KEY']
+
+        # new
+        from openai import OpenAI
+
         client = OpenAI(
-    # This is the default and can be omitted
-        api_key=os.environ.get("OPENAI_API_KEY"),
+          api_key=os.environ['OPENAI_API_KEY'],  # this is also the default, it can be omitted
         )
         stream = client.chat.completions.create(
         model="gpt-4",
