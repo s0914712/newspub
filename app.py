@@ -23,7 +23,7 @@ conn = psycopg2.connect(
     password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
     host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
     port=5432)
-keywords = ['掛號', '議題', '橘子']
+
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
 def callback():
