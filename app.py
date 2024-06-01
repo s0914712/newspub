@@ -54,7 +54,7 @@ def handle_message(event):
         a='sk-proj-pbqBHNVNMr80lMHKj'
         b='VrHT3BlbkFJHgScvtRU'
         c='CdDJ1S9LSLB9'
-        openai.api_key = a+b+c
+        OPENAI_API_KEY  = a+b+c
         client = OpenAI()
         completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
