@@ -51,22 +51,18 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "AI" in msg:
-        interpreter_assistant = OpenAIAssistantRunnable.create_assistant(
-        name="langchain assistant",
-        instructions="You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
-        tools=[{"type": "code_interpreter"}],
-        model="gpt-4"
+        a='sk-proj-pbqBHNVNMr80lMHKj'
+        b='VrHT3BlbkFJHgScvtRU'
+        c='CdDJ1S9LSLB9'
+        openai.api_key = a+b+c
+        completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+        {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+        {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+          ]
         )
-        output = interpreter_assistant.invoke({"content": "Work out the sum of 1, 2 and 3"})
-        output
-        response = openai.Completion.create(
-              model='GPT-3.5 Turbo',
-              prompt=msg[3:],
-              max_tokens=256,
-              temperature=0.5,
-               )
-            # 接收到回覆訊息後，移除換行符號
-        reply_msg = response["choices"][0]["text"].replace('\n','')
+        reply_msg = completion.choices[0].message
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(reply_msg) 
