@@ -51,9 +51,7 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "AI" in msg:
-        a='sk-proj-pbqBHNVNMr80lMHKj'
-        b='VrHT3BlbkFJHgScvtRU'
-        c='CdDJ1S9LSLB9'
+
         OPENAI_API_KEY  = a+b+c
         # new
         from openai import OpenAI
