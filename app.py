@@ -57,9 +57,11 @@ def handle_message(event):
               temperature=0.5,
                )
             # 接收到回覆訊息後，移除換行符號
-         reply_msg = response["choices"][0]["text"].replace('\n','')
-         TextSendMessage(reply_msg) 
-            )
+        reply_msg = response["choices"][0]["text"].replace('\n','')
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(reply_msg) 
+           )          
     if "查詢" in msg:
          message_text_d=""
    
