@@ -50,11 +50,12 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "AI" in msg:
-        client = OpenAI()
+        
         a='sk-proj-pbqBHNVNMr80lMHKj'
         b='VrHT3BlbkFJHgScvtRU'
         c='CdDJ1S9LSLB9'
         openai.api_key = a+b+c
+        client = OpenAI()
         completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
