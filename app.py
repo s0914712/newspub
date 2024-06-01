@@ -2,11 +2,14 @@ import os
 import openai
 import json
 import psycopg2
+from langchain_experimental.openai_assistant import OpenAIAssistantRunnable
 from crawl import *
 from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
+import os
+
 app = Flask(__name__)
 
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
@@ -48,10 +51,16 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "AI" in msg:
-        openai.api_key = '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'
-            # 將第六個字元之後的訊息發送給 OpenAI
+        interpreter_assistant = OpenAIAssistantRunnable.create_assistant(
+        name="langchain assistant",
+        instructions="You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+        tools=[{"type": "code_interpreter"}],
+        model="gpt-4"
+        )
+        output = interpreter_assistant.invoke({"content": "Work out the sum of 1, 2 and 3"})
+        output
         response = openai.Completion.create(
-              model='text-davinci-003',
+              model='GPT-3.5 Turbo',
               prompt=msg[3:],
               max_tokens=256,
               temperature=0.5,
@@ -120,8 +129,9 @@ def handle_message(event):
          event.reply_token,
          TextSendMessage(uid+"  "+new_uid) 
             )
-    if "push" in msg:
-        line_bot_api.push_message(c05c54fea403dda0a39412f74a67fc74,
+    if "Push" in msg:
+        line_bot_api.reply_message(
+         event.reply_token,
         FlexSendMessage(
         alt_text='hello',
             contents={ 
