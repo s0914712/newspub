@@ -57,9 +57,16 @@ def handle_message(event):
         client = OpenAI(
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},{"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+           ]
+            )
+
+        print(completion.choices[0].message)
 
          # 呼叫 ChatCompletion
-        response = get_completion_from_messages(messages, verbose=True)
+        response=completion.choices[0].message
         text_message = TextSendMessage(text=response)
         line_bot_api.reply_message(event.reply_token,text_message)   
 
