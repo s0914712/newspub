@@ -51,8 +51,7 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
         )
     if "AI" in msg:
-
-        OPENAI_API_KEY  = a+b+c
+        OPENAI_API_KEY  = os.environ['APIKEY']
         # new
         from openai import OpenAI
         client = OpenAI(
@@ -76,7 +75,7 @@ def handle_message(event):
    
     if "查詢" in msg:
          message_text_d=""
-   
+       
          cursor = conn.cursor()
         #cursor.execute("INSERT INTO userdata (name, userid) VALUES (%s, %s);", ("小明", "a123456"))
          cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
