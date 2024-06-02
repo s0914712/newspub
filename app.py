@@ -57,17 +57,15 @@ def handle_message(event):
         client = OpenAI(
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
+        Question=msg[3:]
         stream = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Say this is a test"}],
+        messages=[{"role": "user", "content": Question}],
         stream=True,
         )
-        reply_msg=""
-        for chunk in stream:
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(chunk.choices[0].delta.content) 
-               )       
+        reply_msg = stream ["choices"][0]["text"].replace('\n','')
+        text_message = TextSendMessage(text=reply_msg)
+        line_bot_api.reply_message(tk,text_message)   
 
 
 
