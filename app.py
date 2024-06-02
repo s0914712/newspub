@@ -62,10 +62,10 @@ def handle_message(event):
         messages=[{"role": "user", "content": "Say this is a test"}],
         stream=True,
         )
+        reply_msg=""
         for chunk in stream:
             print(chunk.choices[0].delta.content or "", end="")
             reply_msg=chunk.choices[0].delta.content+reply_msg
-        reply_msg = completion.choices[0].message
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(reply_msg) 
