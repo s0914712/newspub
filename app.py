@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
 line_bot_api    = LineBotApi(Channel_Access_Token)
+
 Channel_Secret  = '56f014f7e7e0c049940037987831171c'
 handler = WebhookHandler(Channel_Secret)
 conn = psycopg2.connect(
@@ -38,23 +39,6 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-    return 'OK'
-def get_completion_from_messages(messages,
-        model="gpt-3.5-turbo",  # 語言模型
-        temperature=0,  # 回應溫度
-        max_tokens=500, # 最大的 token 數
-        verbose=False， # 是否顯示除錯除錯訊息
-        ):
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-    )
-
-    if verbose:
-        print(response)
-    return response.choices[0].message["content"]
 # handle text message
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -73,13 +57,6 @@ def handle_message(event):
         client = OpenAI(
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
-        user_message = f"""你好，很高興認識你！"""
-        messages =  [
-          {
-        'role':'user',
-        'content': f"{user_message}"
-           },
-          ]
 
          # 呼叫 ChatCompletion
         response = get_completion_from_messages(messages, verbose=True)
