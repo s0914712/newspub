@@ -64,7 +64,7 @@ def handle_message(event):
         stream=True,
         )
         print(stream)
-        reply_msg = stream.choices[0].message.content.replace('\n','')
+        reply_msg = stream.message.content.replace('\n','')
         text_message = TextSendMessage(text=reply_msg)
         line_bot_api.reply_message(tk,text_message)   
 
