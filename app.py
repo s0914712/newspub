@@ -58,16 +58,13 @@ def handle_message(event):
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
         Question=msg[3:]
-        stream = client.chat.completions.create(
-        response_format={ "response_format": "json_object" },
+        response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": Question}],
-        stream=True,
         )
-        print(stream)
-        reply_msg = stream.choices[0].message.content.replace('\n','')
+        reply_msg=response.choices[0].message["content"]
         text_message = TextSendMessage(text=reply_msg)
-        line_bot_api.reply_message(tk,text_message)   
+        line_bot_api.reply_message(event.reply_token,text_message)   
 
 
 
@@ -130,9 +127,9 @@ def handle_message(event):
          event.reply_token,
          TextSendMessage(uid+"  "+new_uid) 
             )
-    if "?" in msg:
+    if "？" in msg:
         line_bot_api.reply_message(
-         event.reply_token,
+        event.reply_token,
         FlexSendMessage(
         alt_text='hello',
             contents={ 
