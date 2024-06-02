@@ -59,7 +59,7 @@ def handle_message(event):
         )
         Question=msg[3:]
         stream = client.chat.completions.create(
-        response_format={ "type": "json_object" },
+        response_format={ "response_format": "json_object" },
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": Question}],
         stream=True,
