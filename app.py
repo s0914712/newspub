@@ -64,12 +64,10 @@ def handle_message(event):
         )
         reply_msg=""
         for chunk in stream:
-            print(chunk.choices[0].delta.content or "", end="")
-            reply_msg=chunk.choices[0].delta.content+reply_msg
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(reply_msg) 
-           )       
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(chunk.choices[0].delta.content) 
+               )       
 
 
 
