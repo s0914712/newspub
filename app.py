@@ -39,6 +39,22 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+def get_completion_from_messages(messages,
+        model="gpt-3.5-turbo",  # 語言模型
+        temperature=0,  # 回應溫度
+        max_tokens=500, # 最大的 token 數
+        verbose=False， # 是否顯示除錯除錯訊息
+        ):
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+    )
+
+    if verbose:
+        print(response)
+    return response.choices[0].message["content"]
 # handle text message
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -57,13 +73,17 @@ def handle_message(event):
         client = OpenAI(
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
-        Question=msg[3:]
-        response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": Question}],
-        )
-        reply_msg=response.choices[0].message["content"]
-        text_message = TextSendMessage(text=reply_msg)
+        user_message = f"""你好，很高興認識你！"""
+        messages =  [
+          {
+        'role':'user',
+        'content': f"{user_message}"
+           },
+          ]
+
+         # 呼叫 ChatCompletion
+        response = get_completion_from_messages(messages, verbose=True)
+        text_message = TextSendMessage(text=response)
         line_bot_api.reply_message(event.reply_token,text_message)   
 
 
