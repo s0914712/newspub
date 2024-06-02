@@ -22,7 +22,7 @@ conn = psycopg2.connect(
     password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
     host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
     port=5432)
-
+reply_msg=""
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -58,16 +58,17 @@ def handle_message(event):
           api_key=os.environ['APIKEY']  # this is also the default, it can be omitted
         )
         stream = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": "Say this is a test"}],
         stream=True,
         )
         for chunk in stream:
             print(chunk.choices[0].delta.content or "", end="")
+            reply_msg=chunk.choices[0].delta.content+reply_msg
         reply_msg = completion.choices[0].message
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(chunk.choices[0].delta.conten) 
+        TextSendMessage(reply_msg) 
            )       
 
 
