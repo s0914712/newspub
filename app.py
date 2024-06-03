@@ -8,8 +8,13 @@ from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import os
+from api.chatgpt import ChatGPT
 
+chatgpt = ChatGPT()
 app = Flask(__name__)
 
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
@@ -53,20 +58,12 @@ def handle_message(event):
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
         # new
-        client = OpenAI( )
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},{"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-           ]
-            )
-
-        print(completion.choices[0].message)
-
-         # 呼叫 ChatCompletion
-        response=completion.choices[0].message
-        text_message = TextSendMessage(text=response)
-        line_bot_api.reply_message(event.reply_token,text_message)   
-
+        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
+        reply_msg = chatgpt.get_response().replace("AI:", "", 1)
+        chatgpt.add_msg(f"AI:{reply_msg}\n")
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=reply_msg))
 
 
    
