@@ -9,7 +9,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-from chatgpt import ChatGPT
+from chatgpt import *
 
 chatgpt = ChatGPT()
 app = Flask(__name__)
@@ -54,7 +54,7 @@ def handle_message(event):
         )
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
-         chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
+        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
         reply_msg = chatgpt.get_response().replace("AI:", "", 1)
         chatgpt.add_msg(f"AI:{reply_msg}\n")
         line_bot_api.reply_message(
