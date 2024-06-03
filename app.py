@@ -12,7 +12,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import os
-from api.chatgpt import ChatGPT
+from ChatGPT import *
 
 chatgpt = ChatGPT()
 app = Flask(__name__)
