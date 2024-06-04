@@ -113,7 +113,7 @@ def handle_message(event):
         cursor.close()
     if "更新" in msg:
         uid=msg[2:4]
-        new_uid=msg[4:6]
+        new_uid=msg[4:10]
         cursor = conn.cursor()
         cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid}';")
         conn.commit()
