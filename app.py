@@ -10,7 +10,6 @@ from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from chatgpt import *
-
 chatgpt = ChatGPT()
 app = Flask(__name__)
 
