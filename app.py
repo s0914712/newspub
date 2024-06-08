@@ -11,6 +11,7 @@ from flask import Flask, request, abort, render_template
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from chatgpt import *
 chatgpt = ChatGPT()
+gpt_cal=GPT_Cal()
 app = Flask(__name__)
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
 line_bot_api    = LineBotApi(Channel_Access_Token)
@@ -58,7 +59,13 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_msg))# new
-       
+     if "與會" or "出席" in msg:
+        gpt_cal.add_msg(f"HUMAN:{event.message.text}?\n")
+        gcal_url = gpt_cal.get_response()
+        for i in range(len(gcal_url)):
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=gcal_url))# new
 
 
    
