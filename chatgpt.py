@@ -118,7 +118,6 @@ class GPT_Cal:
             gcal_url: str = create_gcal_url(title, date, location, desc)
             print(gcal_url)
         return gcal_url
- pinrt(gcal_url)
     def add_msg(self, text):
         self.prompt.add_msg(text)
 
