@@ -89,7 +89,7 @@ class ChatGPT:
 class GPT_Cal:
     def __init__(self):
         self.prompt = Prompt()
-        self.model = os.getenv("OPENAI_MODEL", default = "gpt-4")
+        self.model = os.getenv("OPENAI_MODEL", default = "gpt-3.5-turbo")
         self.temperature = float(os.getenv("OPENAI_TEMPERATURE", default = 0))
         self.max_tokens = int(os.getenv("OPENAI_MAX_TOKENS", default = 500))
             #Source 你會幫我把內容都轉換為 google calendar 的邀請網址。
