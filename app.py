@@ -182,7 +182,7 @@ def handle_message(event):
                 "height": "sm",
                 "action": {
                   "type": "message",
-                  "label": "更改狀態：參座有空",
+                  "label": "更改狀態：參座沒空",
                   "text": "更改狀態：參座沒空"
                 }
               },
@@ -204,8 +204,8 @@ def handle_message(event):
             "flex": 0
           }
         }))
-        uid='：有空'
-        new_uid='：沒空'
+        uid=":沒空"
+        new_uid=":沒空"
         if "有空" in msg:
             cursor = conn.cursor()
             cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
