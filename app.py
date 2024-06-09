@@ -252,7 +252,7 @@ def handle_message(event):
             "contents": [
               {
                 "type": "text",
-                "text": "掛號機器人，輸入"怎麼用"或"?"",
+                "text": "掛號機器人，輸入 怎麼用 或?",
                 "weight": "bold",
                     "size": "xl"
               },
