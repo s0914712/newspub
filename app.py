@@ -67,7 +67,6 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=gcal_url))# new
-
     if "查詢" in msg:
          message_text_d=""
        
