@@ -102,8 +102,8 @@ class GPT_Cal:
 
             {text}
             """}])
-        first_choice = stream.choices[0]
-        processed_text: str = stream.choices[0].message.content
+        first_choice = response.choices[0]
+        processed_text: str = response.choices[0].message.content
         gcal_list: list = ast.literal_eval(processed_text)
         num_sentences = len(gcal_list)
         for i in range(num_sentences):
