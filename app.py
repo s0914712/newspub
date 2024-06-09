@@ -209,7 +209,7 @@ def handle_message(event):
         uid="沒空"
         new_uid="有空"
         cursor = conn.cursor()
-        cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
+        cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid}';")
         conn.commit()
         cursor.close()
         line_bot_api.reply_message(
@@ -220,7 +220,7 @@ def handle_message(event):
         uid="沒空"
         new_uid="有空"
         cursor = conn.cursor()
-        cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid};")
+        cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid}';")
         conn.commit()
         cursor.close()
         line_bot_api.reply_message(
