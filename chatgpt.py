@@ -118,7 +118,7 @@ class GPT_Cal:
         location = gcal_list[2] or 'TBC'
         desc = gcal_list[3] or 'TBC'
         gcal_url: str = create_gcal_url(title, date, location, desc)
-        return gcal_list[2] 
+        return gcal_url 
 
     def add_msg(self, text):
         self.text=text
