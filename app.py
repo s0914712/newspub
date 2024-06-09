@@ -204,9 +204,10 @@ def handle_message(event):
             "flex": 0
           }
         }))
+
+    if "更改狀態：參座有空" in msg:
         uid="沒空"
         new_uid="有空"
-    if "更改狀態：參座有空" in msg:
         cursor = conn.cursor()
         cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
         conn.commit()
@@ -216,6 +217,8 @@ def handle_message(event):
         TextSendMessage("已更改狀態：查詢") 
             )
     if "更改狀態：參座沒空" in msg:
+        uid="沒空"
+        new_uid="有空"
         cursor = conn.cursor()
         cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid};")
         conn.commit()
