@@ -15,7 +15,6 @@ gpt_cal=GPT_Cal()
 app = Flask(__name__)
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
 line_bot_api    = LineBotApi(Channel_Access_Token)
-
 Channel_Secret  = '56f014f7e7e0c049940037987831171c'
 handler = WebhookHandler(Channel_Secret)
 conn = psycopg2.connect(
