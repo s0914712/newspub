@@ -61,6 +61,7 @@ def handle_message(event):
             TextSendMessage(text=reply_msg))# new
     if "與會" in msg or "出席" in msg:
         gpt_cal.add_msg(f"HUMAN:{event.message.text}?\n")
+        gcal_url =[]
         gcal_url = gpt_cal.get_response()
         for i in range(len(gcal_url)):
             line_bot_api.reply_message(
