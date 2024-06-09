@@ -206,16 +206,20 @@ def handle_message(event):
         }))
         uid="沒空"
         new_uid="有空"
-        if "更改狀態：參座有空" in msg:
-            cursor = conn.cursor()
-            cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
-            conn.commit()
-            cursor.close()
-        if "更改狀態：參座沒空" in msg:
-            cursor = conn.cursor()
-            cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid};")
-            conn.commit()
-            cursor.close()
+    if "更改狀態：參座有空" in msg:
+        cursor = conn.cursor()
+        cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
+        conn.commit()
+        cursor.close()
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage("已更改狀態：查詢") 
+            )
+    if "更改狀態：參座沒空" in msg:
+        cursor = conn.cursor()
+        cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid};")
+        conn.commit()
+        cursor.close()
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage("已更改狀態：查詢") 
