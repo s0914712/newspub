@@ -117,7 +117,7 @@ class GPT_Cal:
             desc = list(gcal_list[i])[3] or 'TBC'
             gcal_url: str = create_gcal_url(title, date, location, desc)
             print(gcal_url)
-        return gcal_url
+        return processed_text
     def add_msg(self, text):
         self.prompt.add_msg(text)
 
