@@ -103,12 +103,29 @@ def handle_message(event):
         TextSendMessage(message_text_d) 
             )
         cursor.close()
-        line_bot_api.reply_message(event.reply_token,"added")
     if "刪除" in msg:
         uid=msg[2:]
         cursor = conn.cursor()
         cursor.execute(f"DELETE FROM userdata WHERE name = '{uid}';")
         conn.commit()
+        cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
+        rows = cursor.fetchall() #讀出所有資料
+        conn.commit()
+        for row in rows:   #將讀到的資料全部print出來
+            message_text_d=message_text_d+""+str(row[0])+" "+""+str(row[1])+str(row[2])+"\n"
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(message_text_d) 
+            )
+        cursor.close()
+        cursor.close()
+    if "取消" in msg:
+        profile = line_bot_api.get_profile(event.source.user_id)
+        record = (profile.display_name,values)
+        name=profile.display_name
+        Id=profile.user_id
+        cursor = conn.cursor()
+        cursor.execute(f"DELETE FROM userdata WHERE name = '{profile.display_name}';")
         cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
         rows = cursor.fetchall() #讀出所有資料
         conn.commit()
