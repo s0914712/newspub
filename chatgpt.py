@@ -112,12 +112,22 @@ class GPT_Cal:
         first_choice = response.choices[0]
         processed_text: str = response.choices[0].message.content
         gcal_list: list = ast.literal_eval(processed_text)
-        title = gcal_list[0] or 'TBC'
-        date = gcal_list[1] or 'TBC'
-        location = gcal_list[2] or 'TBC'
-        desc = gcal_list[3] or 'TBC'
-        gcal_url: str = create_gcal_url(title, date, location, desc)
+        for i in range(1):
+            title = gcal_list[i][0] or 'TBC'
+            date = gcal_list[i][1] or 'TBC'
+            location = gcal_list[i][2] or 'TBC'
+            desc = gcal_list[i][3] or 'TBC'
+            gcal_url: str = create_gcal_url(title, date, location, desc)
         return gcal_url
+        line_bot_api.reply_message(
+        event.reply_token,
+        [
+            TextSendMessage(text="點選以下網址前，先確認時間地點："),
+            TextSendMessage(
+                text=f'標題: {title}\n時間: {date}\n地點: {location}\n描述: {desc}'),
+            response
+        ]
+    )
     def add_msg(self, text):
         self.prompt.add_msg(text)
 
