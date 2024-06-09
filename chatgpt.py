@@ -109,7 +109,7 @@ class GPT_Cal:
         first_choice = response.choices[0]
         processed_text: str = response.choices[0].message.content
         gcal_list: list = ast.literal_eval(processed_text)
-        num_sentences = len(num_sentences)
+        num_sentences = len(gcal_list)
         for i in range(1):
             title = list(gcal_list[i])[0] or 'TBC'
             date = list(gcal_list[i])[1] or 'TBC'
