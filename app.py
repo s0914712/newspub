@@ -218,7 +218,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage("已更改狀態：查詢") 
             )
-    if "？" in msg：
+    if "？" in msg:
         line_bot_api.reply_message(
         event.reply_token,
         FlexSendMessage(alt_text='hello',
