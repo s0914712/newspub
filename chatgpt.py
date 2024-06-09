@@ -113,13 +113,12 @@ class GPT_Cal:
         processed_text: str = response.choices[0].message.content
         gcal_list: list = ast.literal_eval(processed_text)
         num_sentences = len(gcal_list)
-        for i in range(num_sentences):
-            title = gcal_list[i][0] or 'TBC'
-            date = gcal_list[i][1] or 'TBC'
-            location = gcal_list[i][2] or 'TBC'
-            desc = gcal_list[i][3] or 'TBC'
+            title = gcal_list[0] or 'TBC'
+            date = gcal_list[1] or 'TBC'
+            location = gcal_list[2] or 'TBC'
+            desc = gcal_lis[3] or 'TBC'
             gcal_url: str = create_gcal_url(title, date, location, desc)
-        return processed_text
+        return gcal_list
 
     def add_msg(self, text):
         self.text=text
