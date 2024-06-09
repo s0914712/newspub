@@ -112,9 +112,9 @@ class GPT_Cal:
         num_sentences = len(gcal_list)
         for i in range(num_sentences):
             title = list(gcal_list[i])[0] or 'TBC'
-            date = gcal_list[i][1] or 'TBC'
-            location = gcal_list[i][2] or 'TBC'
-            desc = gcal_list[i][3] or 'TBC'
+            date = list(gcal_list[i])[1] or 'TBC'
+            location = list(gcal_list[i])[2] or 'TBC'
+            desc = list(gcal_list[i])[3] or 'TBC'
             gcal_url: str = create_gcal_url(title, date, location, desc)
         return gcal_url
 
