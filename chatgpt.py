@@ -6,6 +6,11 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+import openai
+import uvicorn
+import re
+import urllib.parse
+import ast
 client = OpenAI()
 
 client.api_key = os.getenv('APIKEY')
