@@ -114,17 +114,202 @@ def handle_message(event):
         conn.commit()
         cursor.close()
     if "更新" in msg:
-        uid=msg[2:5]
-        new_uid=msg[5:7]
-        cursor = conn.cursor()
-        cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid}';")
+        line_bot_api.reply_message(
+        event.reply_token,
+        FlexSendMessage(alt_text='hello',
+            contents= {
+          "type": "bubble",
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "修正狀態機器人",
+                "weight": "bold",
+                "size": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "說明",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": "按下面的按鈕就可以更改狀態",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                  "type": "message",
+                  "label": "更改狀態：參座有空",
+                  "text": "更改狀態：參座有空"
+                }
+              },
+              {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                  "type": "message",
+                  "label": "更改狀態：參座有空",
+                  "text": "更改狀態：參座沒空"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "margin": "sm"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "查詢",
+                  "text": "查詢"
+                }
+              }
+            ],
+            "flex": 0
+          }
+        }))
+        uid='：有空'
+        new_uid='：沒空'
+        if 有空 in msg：
+            cursor = conn.cursor()
+            cursor.execute(f"UPDATE userdata SET userid = '{new_uid}' WHERE userid = '{uid};")
+        if 沒空 in msg：
+            cursor = conn.cursor()
+            cursor.execute(f"UPDATE userdata SET userid = '{uid}' WHERE userid = '{new_uid};")
         conn.commit()
         cursor.close()
         line_bot_api.reply_message(
-         event.reply_token,
-         TextSendMessage(uid+"  "+new_uid) 
+        event.reply_token,
+        TextSendMessage("已更改狀態：查詢") 
             )
-    if "？" in msg:
+    if "？" in msg：
+        line_bot_api.reply_message(
+        event.reply_token,
+        FlexSendMessage(alt_text='hello',
+            contents= {
+          "type": "bubble",
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "掛號機器人",
+                "weight": "bold",
+                    "size": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "說明",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": "按下面的按鈕就可以掛號或取消",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                  "type": "message",
+                  "label": "輸入：掛號+軍線",
+                  "text": "掛號"
+                }
+              },
+              {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                  "type": "message",
+                  "label": "取消",
+                  "text": "刪除"
+                }
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "margin": "sm"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "查詢",
+                  "text": "查詢"
+                }
+              }
+            ],
+            "flex": 0
+          }
+}))
+    if "？？" in msg:
         line_bot_api.reply_message(
         event.reply_token,
         FlexSendMessage(
@@ -235,8 +420,8 @@ def handle_message(event):
           }
         ],
         "flex": 0
-      }
-    }))
+              }
+            }))
     else:
         line_bot_api.reply_message(
         event.reply_token,
