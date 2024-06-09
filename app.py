@@ -214,7 +214,7 @@ def handle_message(event):
         cursor.close()
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=f"已更改狀態：'{new_uid}'") 
+        TextSendMessage(text=f"已更改狀態：{new_uid}") 
             )
     if "更改狀態：參座沒空" in msg:
         uid="沒空"
@@ -225,7 +225,7 @@ def handle_message(event):
         cursor.close()
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=f"已更改狀態：'{new_uid}'") 
+        TextSendMessage(text=f"已更改狀態：{uid}") 
             )
     if "？" in msg:
         line_bot_api.reply_message(
