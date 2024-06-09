@@ -124,8 +124,6 @@ def handle_message(event):
         Id=profile.user_id
         cursor = conn.cursor()
         cursor.execute(f"DELETE FROM userdata WHERE name = '{profile.display_name}';")
-        cursor.execute("SELECT * FROM userdata;")#選擇資料表userdata
-        rows = cursor.fetchall() #讀出所有資料
         conn.commit()
         cursor.close()
     if "更新" in msg:
@@ -254,7 +252,7 @@ def handle_message(event):
             "contents": [
               {
                 "type": "text",
-                "text": "掛號機器人",
+                "text": "掛號機器人，輸入"怎麼用"或"?"",
                 "weight": "bold",
                     "size": "xl"
               },
@@ -312,7 +310,7 @@ def handle_message(event):
                 "action": {
                   "type": "message",
                   "label": "取消",
-                  "text": "刪除"
+                  "text": "取消"
                 }
               },
               {
@@ -381,7 +379,7 @@ def handle_message(event):
                       },
                       {
                         "type": "text",
-                        "text": "查動態、查新聞、掛號",
+                        "text": "查動態、查新聞、掛號、串聯GOOGLE日曆(給他行程)",
                         "wrap": True,
                         "color": "#666666",
                         "size": "sm",
