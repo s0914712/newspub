@@ -111,7 +111,7 @@ class GPT_Cal:
         gcal_list: list = ast.literal_eval(processed_text)
         num_sentences = len(gcal_list)
         for i in range(num_sentences):
-            title = gcal_list[i][0] or 'TBC'
+            title = list(gcal_list[i])[0] or 'TBC'
             date = gcal_list[i][1] or 'TBC'
             location = gcal_list[i][2] or 'TBC'
             desc = gcal_list[i][3] or 'TBC'
