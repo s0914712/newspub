@@ -116,7 +116,7 @@ class GPT_Cal:
         title = gcal_list[0] or 'TBC'
         date = gcal_list[1] or 'TBC'
         location = gcal_list[2] or 'TBC'
-        desc = gcal_lis[3] or 'TBC'
+        desc = gcal_list[3] or 'TBC'
         gcal_url: str = create_gcal_url(title, date, location, desc)
         return processed_text[0]
 
