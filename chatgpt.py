@@ -102,8 +102,8 @@ class GPT_Cal:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": f"""
-            Source 你會幫我把內容都轉換為 google calendar 的邀請網址。
-            Message 我會給你任何格式的訊息，需要整理裡面的內容並對應上google calendar 的渲染方式，中文字需要編碼。
+            Source 你會幫我把內容都轉換為 我需要的格式。
+            Message 我會給你任何格式的訊息，需要整理裡面的內容並，中文字需要編碼。
             Channel 將內容整理成標題、時間、地點、描述。範例: ['與同事聚餐', '20240627T230000/20240627T233000', '美麗華', '具體描述']，並且要能整理出對應標題、行事曆時間、地點，其餘內容整理完後放在描述裡面，現在是 2024 年。
             Receiver 連結google行事曆表單需要點選的民眾。
             Effect 最後透過陣列回傳。
