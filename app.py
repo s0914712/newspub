@@ -318,7 +318,7 @@ def handle_message(event):
             "flex": 0
           }
 }))
-    if "？？" in msg:
+    if "怎麼用" in msg:
         line_bot_api.reply_message(
         event.reply_token,
         FlexSendMessage(
