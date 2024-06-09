@@ -118,7 +118,6 @@ def handle_message(event):
         TextSendMessage(message_text_d) 
             )
         cursor.close()
-        cursor.close()
     if "取消" in msg:
         profile = line_bot_api.get_profile(event.source.user_id)
         record = (profile.display_name,values)
