@@ -150,7 +150,7 @@ def handle_message(event):
                       {
                         "type": "text",
                         "text": "按下面的按鈕就可以更改狀態",
-                        "wrap": true,
+                        "wrap": True,
                         "color": "#666666",
                         "size": "sm",
                         "flex": 5
@@ -255,7 +255,7 @@ def handle_message(event):
                       {
                         "type": "text",
                         "text": "按下面的按鈕就可以掛號或取消",
-                        "wrap": true,
+                        "wrap": True,
                         "color": "#666666",
                         "size": "sm",
                         "flex": 5
