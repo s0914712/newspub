@@ -12,6 +12,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from chatgpt import *
 chatgpt = ChatGPT()
 gpt_cal=GPT_Cal()
+gpt_news=GPT_News()
 app = Flask(__name__)
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
 line_bot_api    = LineBotApi(Channel_Access_Token)
@@ -66,6 +67,13 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=gcal_url))# new
+    if "擬答" in msg 
+        gpt_news.add_msg(f"HUMAN:{event.message.text}?\n")
+        respon =[]
+        respon = gpt_news.get_response()
+        line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=respon))# new
     if "查詢" in msg:
          message_text_d=""
        
