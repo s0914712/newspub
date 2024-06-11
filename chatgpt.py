@@ -124,7 +124,7 @@ class GPT_Cal:
         self.text=text
 class GPT_News:
     def __init__(self):
-        self.model = os.getenv("OPENAI_MODEL", default = "gpt-3.5-turbo")
+        self.model = os.getenv("OPENAI_MODEL", default = "gpt-4")
         self.temperature = float(os.getenv("OPENAI_TEMPERATURE", default = 0))
         self.max_tokens = int(os.getenv("OPENAI_MAX_TOKENS", default = 500))
         self.text="2014年三月五日在台北美麗華餐廳與同事聚餐"
@@ -136,7 +136,7 @@ class GPT_News:
     def get_response(self):
         text=self.text
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[{"role": "user", "content": f"""
             Source 你是一位政府機關的回應客服人員 會幫我把內容都進行修飾，回應給政府機關上層使他們了解真相
             Message 你會收到一個連結，需要對於連結內的文字內容做出回應
