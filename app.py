@@ -12,7 +12,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from chatgpt import *
 chatgpt = ChatGPT()
 gpt_cal=GPT_Cal()
-gpt_news=GPT_News()
+#gpt_news=GPT_News()
 app = Flask(__name__)
 Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
 line_bot_api    = LineBotApi(Channel_Access_Token)
