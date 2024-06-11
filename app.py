@@ -67,13 +67,13 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=gcal_url))# new
-    if "擬答" in msg 
-        gpt_news.add_msg(f"HUMAN:{event.message.text}?\n")
-        respon =[]
-        respon = gpt_news.get_response()
-        line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=respon))# new
+    #if "擬答" in msg 
+        #gpt_news.add_msg(f"HUMAN:{event.message.text}?\n")
+        #respon =[]
+        #respon = gpt_news.get_response()
+        #line_bot_api.reply_message(
+                #event.reply_token,
+                #TextSendMessage(text=respon))# new
     if "查詢" in msg:
          message_text_d=""
        
