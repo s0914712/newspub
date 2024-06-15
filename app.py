@@ -48,6 +48,7 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     if "關鍵字" in msg:
+       	
         kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
         pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
         data = pytrends.interest_over_time()
@@ -55,24 +56,13 @@ def handle_message(event):
         data = data.rename(columns={"data": "date"})
         fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
         fig.write_image("figgure.png")
-        line_bot_api.reply_message(
-        event.reply_token,
-        FlexSendMessage(
-        alt_text='hello',
-            contents={
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": ".\figgure.png",
-    "size": "full",
-    "aspectRatio": "20:13",
-    "aspectMode": "cover",
-    "action": {
-      "type": "uri",
-      "uri": "https://line.me/"
-    }
-  }
-}))
+        SendImage = line_bot_api.get_message_content(event.message.id)        
+		local_save = './static/' + 'figgure' + '.png'
+		with open(local_save, 'wb') as fd:
+			for chenk in SendImage.iter_content():
+				fd.write(chenk)               
+		line_bot_api.reply_message(event.reply_token, ImageSendMessage(original_content_url = ngrok_url + "/static/" + event.message.id + ".png", preview_image_url = ngrok_url + "/static/" + event.message.id + ".png"))
+       
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
