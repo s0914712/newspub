@@ -44,6 +44,32 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    if "關鍵字" in msg:
+        kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
+        pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
+        data = pytrends.interest_over_time()
+        data= data.reset_index()
+        data = data.rename(columns={"data": "date"})
+        fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
+        fig.write_image("figgure.png")
+        line_bot_api.reply_message(
+        event.reply_token,
+        FlexSendMessage(
+        alt_text='hello',
+            contents={
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": ".\figgure.png",
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "action": {
+      "type": "uri",
+      "uri": "https://line.me/"
+    }
+  }
+}))
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
