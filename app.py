@@ -1,5 +1,6 @@
 import os
 from openai import OpenAI
+import plotly.express as px
 import openai
 import json
 import psycopg2
