@@ -10,6 +10,8 @@ from linebot.exceptions import InvalidSignatureError
 from flask import Flask, request, abort, render_template
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from chatgpt import *
+from pytrends.request import TrendReq
+pytrends = TrendReq(hl='en-US', tz=360)
 chatgpt = ChatGPT()
 gpt_cal=GPT_Cal()
 gpt_news=GPT_News()
