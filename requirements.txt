@@ -9,3 +9,5 @@ fastapi
 uvicorn[standard]
 gunicorn
 pytrends
+plotly
+numpy
