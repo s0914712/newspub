@@ -33,6 +33,10 @@ conn = psycopg2.connect(
 reply_msg=""
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
+def glucose_graph(client_id, imgpath):
+	im = pyimgur.Imgur(client_id)
+	upload_image = im.upload_image(imgpath, title="Uploaded with PyImgur")
+	return upload_image.link
 def callback():
     signature = request.headers['X-Line-Signature']
     body      = request.get_data(as_text=True)
@@ -52,14 +56,14 @@ def handle_message(event):
     msg = event.message.text
     if "關鍵字" in msg:
        	kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
-        pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
-        data = pytrends.interest_over_time()
-        data= data.reset_index()
-        data = data.rename(columns={"data": "date"})
-        fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
-        fig.write_image("./figgure.png")
+	pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
+	data = pytrends.interest_over_time()
+	data= data.reset_index()
+	data = data.rename(columns={"data": "date"})
+	fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
+	fig.write_image("./figgure.png")
 	img_url=glucose_graph(client_id,"./figgure.png")     
-        line_bot_api.reply_message(event.reply_token, img_url)
+	line_bot_api.reply_message(event.reply_token, img_url)
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
