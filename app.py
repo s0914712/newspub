@@ -63,16 +63,17 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if "關鍵字" in msg:
-	img_url=plot_graph(["海空戰力", "快艇"])	    
-	line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
+
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=result+result2)
-        )
+	)
+    if "關鍵字" in msg:
+        img_url=plot_graph(["海空戰力", "快艇"])
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
         chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
