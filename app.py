@@ -64,8 +64,7 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     if "關鍵字" in msg:
-	kw_list = ["海空戰力", "快艇"]
-	img_url=plot_graph(kw_list)	    
+	img_url=plot_graph(["海空戰力", "快艇"])	    
 	line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
     if "新聞" in msg:
         result = news_crawler()
