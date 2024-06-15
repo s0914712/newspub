@@ -55,8 +55,8 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     if "關鍵字" in msg:
-       	kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
-	pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
+       	kw_list = ["海空戰力", "快艇"]
+	pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
 	data = pytrends.interest_over_time()
 	data= data.reset_index()
 	data = data.rename(columns={"data": "date"})
