@@ -58,8 +58,8 @@ def handle_message(event):
         data = data.rename(columns={"data": "date"})
         fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
         fig.write_image("./figgure.png")
-	local_save ='./figgure.png'
-	img_url = glucose_graph(client_id, local_save)     
+	local_save='./figgure.png'
+	img_url=glucose_graph(client_id, local_save)     
         line_bot_api.reply_message(event.reply_token, img_url)
     if "新聞" in msg:
         result = news_crawler()
