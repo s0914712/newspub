@@ -33,10 +33,6 @@ conn = psycopg2.connect(
 reply_msg=""
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
-def glucose_graph(client_id, imgpath):
-    im = pyimgur.Imgur(client_id)
-    upload_image = im.upload_image(imgpath, title="Uploaded with PyImgur")
-    return upload_image.link
 def plot_graph(kw_list):
     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
     data = pytrends.interest_over_time()
@@ -46,7 +42,9 @@ def plot_graph(kw_list):
     fig.write_image("./figgure.png")
     local_save ='./figgure.png'
     client_id='a0f19779af81cc0'
-    img_url=glucose_graph(client_id,local_save)     
+    im = pyimgur.Imgur(client_id)
+    upload_image = im.upload_image(local_save, title="Uploaded with PyImgur")
+    img_url=upload_image.link   
     return  img_url
 def callback():
     signature = request.headers['X-Line-Signature']
