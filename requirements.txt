@@ -8,3 +8,4 @@ openai
 fastapi
 uvicorn[standard]
 gunicorn
+pytrends
