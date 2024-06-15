@@ -63,7 +63,7 @@ def handle_message(event):
   "type": "bubble",
   "hero": {
     "type": "image",
-    "url": ".\figgure.png",
+    "url": "https://developers-resource.landpress.line.me/fx/img/01_1_cafe.png",
     "size": "full",
     "aspectRatio": "20:13",
     "aspectMode": "cover",
