@@ -42,7 +42,7 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-# handle text message
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
