@@ -1,3 +1,4 @@
+kaleido
 bs4
 flask
 requests
