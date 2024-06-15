@@ -48,20 +48,17 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     if "關鍵字" in msg:
-       	
-        kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
+       	kw_list = ["海空戰力", "快艇"] # list of keywords to get data 
         pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d') #pull data from 7 days from today to nowimport plot.express as px
         data = pytrends.interest_over_time()
         data= data.reset_index()
         data = data.rename(columns={"data": "date"})
         fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
-        fig.write_image("figgure.png")
-        SendImage = line_bot_api.get_message_content(event.message.id)        
-		local_save = './static/' + 'figgure' + '.png'
-		with open(local_save, 'wb') as fd:
-			for chenk in SendImage.iter_content():
-				fd.write(chenk)               
-		line_bot_api.reply_message(event.reply_token, ImageSendMessage(original_content_url = ngrok_url + "/static/" + event.message.id + ".png", preview_image_url = ngrok_url + "/static/" + event.message.id + ".png"))
+        fig.write_image("./figgure.png")
+	client_id='a0f19779af81cc0'
+	local_save ='./figgure.png'
+	img_url = glucose_graph(client_id, local_save)     
+        line_bot_api.reply_message(event.reply_token, ImageSendMessage(original_content_url = img_url, preview_image_url = img_url))
        
     if "新聞" in msg:
         result = news_crawler()
