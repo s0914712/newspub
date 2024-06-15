@@ -66,7 +66,7 @@ def handle_message(event):
     if "關鍵字" in msg:
 	kw_list = ["海空戰力", "快艇"]
 	img_url=plot_graph(kw_list)	    
-	line_bot_api.reply_message(event.reply_token, img_url)
+	line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
     if "新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
