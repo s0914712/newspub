@@ -64,7 +64,7 @@ def callback():
 def handle_message(event):
     msg = event.message.text
 
-    if "新聞" in msg:
+    if "爬新聞" in msg:
         result = news_crawler()
         result2= CNAnews_crawler()
         line_bot_api.reply_message(
@@ -479,11 +479,7 @@ def handle_message(event):
         "flex": 0
               }
             }))
-    else:
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text='收到')
-            )
+
         
 
 if __name__ == "__main__":
