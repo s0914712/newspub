@@ -33,7 +33,8 @@ conn = psycopg2.connect(
 reply_msg=""
 # handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
-def plot_graph(kw_list):
+def plot_graph():
+    kw_list=["海空戰力", "快艇"]
     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
     data = pytrends.interest_over_time()
     data= data.reset_index()
@@ -72,7 +73,7 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
 	)
     if "關鍵字" in msg:
-        img_url=plot_graph(["海空戰力", "快艇"])
+        img_url=plot_graph()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
