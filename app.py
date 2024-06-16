@@ -72,11 +72,11 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
 	)
     if "關鍵字" in msg:
-        keywords = msg[4:].split()
-        img_url=plot_graph(keywords)
+        keywords = msg.split()
+        img_url=plot_graph(keywords[2:])
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="URL:"+img_url)
+            ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
 	)
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
