@@ -78,7 +78,7 @@ def handle_message(event):
             event.reply_token,
             ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
 	)
-    if "AI" in msg:
+    if "AI回答" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
         chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
         reply_msg = chatgpt.get_response().replace("AI:", "", 1)
