@@ -74,7 +74,10 @@ def handle_message(event):
 	)
     if "關鍵字" in msg:
         img_url=plot_graph()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(img_url))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=img_url)
+	)
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
         chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
