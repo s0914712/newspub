@@ -25,7 +25,7 @@ def plot_graph(keywords):
     data = pytrends.interest_over_time()
     data= data.reset_index()
     data = data.rename(columns={"data": "date"})
-    fig = px.line(data, x="date", y=kw_list, title="關鍵字搜索量")
+    fig = px.line(data, x="date", y=kw_list, title="Keyword Search Amount in Google")
     fig.write_image("./figgure.png")
     local_save ='./figgure.png'
     client_id='a0f19779af81cc0'
