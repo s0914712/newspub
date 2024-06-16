@@ -21,7 +21,7 @@ gpt_news=GPT_News()
 app = Flask(__name__)
 def plot_graph(keywords):
     kw_list=keywords
-    pytrends.build_payload(kw_list, cat=0, timeframe='now 14-d')
+    pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
     data = pytrends.interest_over_time()
     data= data.reset_index()
     data = data.rename(columns={"data": "date"})
