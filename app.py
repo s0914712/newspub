@@ -38,7 +38,7 @@ def plot_graph(kw_list):
     data = pytrends.interest_over_time()
     data= data.reset_index()
     data = data.rename(columns={"data": "date"})
-    fig = px.line(data, x="date", y=["海空戰力", "快艇"], title="關鍵字搜索量")
+    fig = px.line(data, x="date", y=kw_list, title="關鍵字搜索量")
     fig.write_image("./figgure.png")
     local_save ='./figgure.png'
     client_id='a0f19779af81cc0'
