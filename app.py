@@ -73,7 +73,7 @@ def handle_message(event):
 	)
     if "關鍵字" in msg:
         keywords = msg.split()
-        img_url=plot_graph(keywords[2:])
+        img_url=plot_graph(keywords[1:])
         line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
