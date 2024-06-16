@@ -76,7 +76,7 @@ def handle_message(event):
         img_url=plot_graph()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=img_url)
+            TextSendMessage(text="URL:"+img_url)
 	)
     if "AI" in msg:
         OPENAI_API_KEY  = os.environ['APIKEY']
