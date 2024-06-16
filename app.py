@@ -19,8 +19,8 @@ chatgpt = ChatGPT()
 gpt_cal=GPT_Cal()
 gpt_news=GPT_News()
 app = Flask(__name__)
-def plot_graph():
-    kw_list=["海空戰力", "快艇"]
+def plot_graph(keywords):
+    kw_list=keywords
     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
     data = pytrends.interest_over_time()
     data= data.reset_index()
@@ -72,7 +72,8 @@ def handle_message(event):
             TextSendMessage(text=result+result2)
 	)
     if "關鍵字" in msg:
-        img_url=plot_graph()
+	keywords = msg[4:].split()
+        img_url=plot_graph(keywords)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="URL:"+img_url)
