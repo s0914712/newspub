@@ -19,20 +19,6 @@ chatgpt = ChatGPT()
 gpt_cal=GPT_Cal()
 gpt_news=GPT_News()
 app = Flask(__name__)
-Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
-line_bot_api    = LineBotApi(Channel_Access_Token)
-Channel_Secret  = '56f014f7e7e0c049940037987831171c'
-
-handler = WebhookHandler(Channel_Secret)
-conn = psycopg2.connect(
-    database="dcsbhdut3v5fue",
-    user="uq2rvdd232lmg",
-    password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
-    host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-    port=5432)
-reply_msg=""
-# handle request from "/callback" 
-@app.route("/callback", methods=['POST'])
 def plot_graph():
     kw_list=["海空戰力", "快艇"]
     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d')
@@ -47,13 +33,26 @@ def plot_graph():
     upload_image = im.upload_image(local_save, title="Uploaded with PyImgur")
     img_url=upload_image.link   
     return  img_url
+Channel_Access_Token = '+rq5EEHCHR5pK6abD/3VuJZ8Q0iZxlb55AN6TzcBO6OC0f9buhiwdicHohpqPpnO8oHa0g/VHUl0AOz8q+yxkBoDmKSyuHZyQpUTQO8i93fI45O5CUdTnwiReYDSTKX+hUWM7Ye5uM0v4Zl61xz85gdB04t89/1O/w1cDnyilFU='
+line_bot_api    = LineBotApi(Channel_Access_Token)
+Channel_Secret  = '56f014f7e7e0c049940037987831171c'
+
+handler = WebhookHandler(Channel_Secret)
+conn = psycopg2.connect(
+    database="dcsbhdut3v5fue",
+    user="uq2rvdd232lmg",
+    password="p328a4deb85279e7466144de758c11ac86611c3178e7188078552b18ec7190360",
+    host="c97r84s7psuajm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+    port=5432)
+reply_msg=""
+# handle request from "/callback" 
+@app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
     body      = request.get_data(as_text=True)
     json_data = json.loads(body)
     msg = json_data['events'][0]['message']['text']      # 取得 LINE 收到的文字訊息
     tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
-    
     #line_bot_api.reply_message(tk,TextSendMessage(msg))  # 回傳訊息
     app.logger.info("Request body: " + body)
     try:
